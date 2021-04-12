@@ -1,16 +1,32 @@
 package gb.myhomework.popular_libraries_final.mvp.presenter
 
 import com.github.terrakok.cicerone.Router
-import gb.myhomework.popular_libraries_final.mvp.model.NasaApodRepo
 import gb.myhomework.popular_libraries_final.mvp.model.entity.NasaApod
+import gb.myhomework.popular_libraries_final.mvp.model.repo.INasaApodRepo
 import gb.myhomework.popular_libraries_final.mvp.navigation.IScreens
 import gb.myhomework.popular_libraries_final.mvp.presenter.list.IApodsListPresenter
 import gb.myhomework.popular_libraries_final.mvp.view.IStartFragmentView
 import gb.myhomework.popular_libraries_final.mvp.view.list.IApodItemView
+import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
+import javax.inject.Inject
+import javax.inject.Named
 
-class StartPresenter (val nasaApodRepo: NasaApodRepo, val router: Router, val screens: IScreens) :
+class StartPresenter() :
     MvpPresenter<IStartFragmentView>() {
+
+    @Inject
+    @field:Named("uiScheduler")
+    lateinit var uiScheduler: Scheduler
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var screens: IScreens
+
+    @Inject
+    lateinit var retrofitNasaApodRepo: INasaApodRepo
 
     class ApodsListPresenter : IApodsListPresenter {
         val apods = mutableListOf<NasaApod>()
@@ -32,16 +48,21 @@ class StartPresenter (val nasaApodRepo: NasaApodRepo, val router: Router, val sc
         loadData()
 
         apodsListPresenter.itemClickListener = { view ->
-            val apod =apodsListPresenter.apods[view.pos]
+            val apod = apodsListPresenter.apods[view.pos]
             router.navigateTo(screens.apod(apod))
         }
     }
 
     fun loadData() {
-        val apods = nasaApodRepo.getNasaApods()
-        apodsListPresenter.apods.clear()
-        apodsListPresenter.apods.addAll(apods)
-        viewState.updateList()
+        retrofitNasaApodRepo.getNasaApods()
+            .observeOn(uiScheduler)
+            .subscribe({ repos ->
+                apodsListPresenter.apods.clear()
+                apodsListPresenter.apods.addAll(repos)
+                viewState.updateList()
+            }, {
+                println("Error: ${it.message}")
+            })
     }
 
     fun backClick(): Boolean {

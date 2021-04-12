@@ -16,7 +16,9 @@ class ViewFragment : MvpAppCompatFragment(), IViewFragmentView, BackClickListene
 
     private val presenter: ViewPresenter by moxyPresenter {
         val apod = arguments?.getParcelable<NasaApod>(APOD_ARG) as NasaApod
-        ViewPresenter(apod, App.instance.router)
+        ViewPresenter(apod).apply {
+            App.instance.appComponent.inject(this)
+        }
     }
 
     private var vb: FragmentViewBinding? = null
