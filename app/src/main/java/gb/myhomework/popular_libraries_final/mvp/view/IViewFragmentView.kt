@@ -5,5 +5,8 @@ import moxy.viewstate.strategy.alias.AddToEndSingle
 
 @AddToEndSingle
 interface IViewFragmentView : MvpView {
-    fun addText(title: String)
+    fun setTitle(title: String)
+    fun loadApod(url: String)
+    fun setCopyright(copyright: String)
+    fun setExplanation(explanation: String)
 }

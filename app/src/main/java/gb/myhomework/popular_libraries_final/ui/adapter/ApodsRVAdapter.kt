@@ -34,5 +34,9 @@ class ApodsRVAdapter(val presenter: IApodsListPresenter) :
             tvTitle.text = text
         }
 
+        override fun setDate(date: String) {
+            vb.tvDate.text = date
+        }
+
     }
 }

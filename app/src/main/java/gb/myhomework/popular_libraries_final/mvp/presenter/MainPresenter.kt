@@ -6,7 +6,7 @@ import gb.myhomework.popular_libraries_final.mvp.view.IMainView
 import moxy.MvpPresenter
 import javax.inject.Inject
 
-class MainPresenter() : MvpPresenter<IMainView>() {
+class MainPresenter : MvpPresenter<IMainView>() {
 
     @Inject
     lateinit var router: Router

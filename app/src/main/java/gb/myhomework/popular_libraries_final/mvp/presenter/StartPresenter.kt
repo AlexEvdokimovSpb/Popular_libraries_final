@@ -12,7 +12,7 @@ import moxy.MvpPresenter
 import javax.inject.Inject
 import javax.inject.Named
 
-class StartPresenter() :
+class StartPresenter :
     MvpPresenter<IStartFragmentView>() {
 
     @Inject
@@ -34,6 +34,7 @@ class StartPresenter() :
 
         override fun bindView(view: IApodItemView) {
             val apod = apods[view.pos]
+            view.setDate(apod.date)
             view.setTitle(apod.title)
         }
 

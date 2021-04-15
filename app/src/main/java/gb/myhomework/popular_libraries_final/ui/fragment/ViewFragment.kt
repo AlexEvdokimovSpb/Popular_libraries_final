@@ -3,12 +3,15 @@ package gb.myhomework.popular_libraries_final.ui.fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import gb.myhomework.popular_libraries_final.App
 import gb.myhomework.popular_libraries_final.databinding.FragmentViewBinding
 import gb.myhomework.popular_libraries_final.mvp.model.entity.NasaApod
+import gb.myhomework.popular_libraries_final.mvp.model.image.IImageLoader
 import gb.myhomework.popular_libraries_final.mvp.presenter.ViewPresenter
 import gb.myhomework.popular_libraries_final.mvp.view.IViewFragmentView
 import gb.myhomework.popular_libraries_final.ui.BackClickListener
+import gb.myhomework.popular_libraries_final.ui.image.GlideImageLoader
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -22,6 +25,8 @@ class ViewFragment : MvpAppCompatFragment(), IViewFragmentView, BackClickListene
     }
 
     private var vb: FragmentViewBinding? = null
+    val imageLoader: IImageLoader<ImageView>? = null
+    //val imageLoader: GlideImageLoader(ImageView)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,10 +43,6 @@ class ViewFragment : MvpAppCompatFragment(), IViewFragmentView, BackClickListene
 
     override fun backPressed() = presenter.backClick()
 
-    override fun addText(title: String) {
-        vb?.textTitle?.text = title
-    }
-
     companion object {
         private const val APOD_ARG = "apod"
 
@@ -50,5 +51,21 @@ class ViewFragment : MvpAppCompatFragment(), IViewFragmentView, BackClickListene
                 putParcelable(APOD_ARG, apod)
             }
         }
+    }
+
+    override fun setTitle(title: String) {
+        vb?.tvTitle?.text = title
+    }
+
+    override fun loadApod(url: String) {
+        vb?.ivApod?.let { imageLoader?.load(url, it) }
+    }
+
+    override fun setCopyright(copyright: String) {
+        vb?.tvCopyright?.setText(copyright)
+    }
+
+    override fun setExplanation(explanation: String) {
+        vb?.tvExplanation?.setText(explanation)
     }
 }
