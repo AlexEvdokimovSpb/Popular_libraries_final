@@ -1,13 +1,13 @@
 package gb.myhomework.popular_libraries_final.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import gb.myhomework.popular_libraries_final.App
+import gb.myhomework.popular_libraries_final.Constants
 import gb.myhomework.popular_libraries_final.databinding.FragmentViewBinding
 import gb.myhomework.popular_libraries_final.mvp.model.entity.NasaApod
-import gb.myhomework.popular_libraries_final.mvp.model.image.IImageLoader
 import gb.myhomework.popular_libraries_final.mvp.presenter.ViewPresenter
 import gb.myhomework.popular_libraries_final.mvp.view.IViewFragmentView
 import gb.myhomework.popular_libraries_final.ui.BackClickListener
@@ -24,9 +24,10 @@ class ViewFragment : MvpAppCompatFragment(), IViewFragmentView, BackClickListene
         }
     }
 
+    val TAG = "HW " + ViewFragment::class.java.simpleName
+
     private var vb: FragmentViewBinding? = null
-    val imageLoader: IImageLoader<ImageView>? = null
-    //val imageLoader: GlideImageLoader(ImageView)? = null
+    val imageLoader = GlideImageLoader()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,17 +56,24 @@ class ViewFragment : MvpAppCompatFragment(), IViewFragmentView, BackClickListene
 
     override fun setTitle(title: String) {
         vb?.tvTitle?.text = title
+        if (Constants.DEBUG) {
+            Log.v(TAG, "title $title ")
+        }
     }
 
     override fun loadApod(url: String) {
-        vb?.ivApod?.let { imageLoader?.load(url, it) }
+        vb?.ivApod?.let { imageLoader.load(url, it) }
+
+        if (Constants.DEBUG) {
+            Log.v(TAG, "url $url $imageLoader $vb ")
+        }
     }
 
     override fun setCopyright(copyright: String) {
-        vb?.tvCopyright?.setText(copyright)
+        vb?.tvCopyright?.text = copyright
     }
 
     override fun setExplanation(explanation: String) {
-        vb?.tvExplanation?.setText(explanation)
+        vb?.tvExplanation?.text = explanation
     }
 }

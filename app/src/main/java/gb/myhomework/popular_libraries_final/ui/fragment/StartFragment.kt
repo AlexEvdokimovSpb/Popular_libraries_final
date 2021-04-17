@@ -1,10 +1,12 @@
 package gb.myhomework.popular_libraries_final.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import gb.myhomework.popular_libraries_final.App
+import gb.myhomework.popular_libraries_final.Constants
 import gb.myhomework.popular_libraries_final.databinding.FragmentStartBinding
 import gb.myhomework.popular_libraries_final.mvp.presenter.StartPresenter
 import gb.myhomework.popular_libraries_final.mvp.view.IStartFragmentView
@@ -14,6 +16,8 @@ import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
 class StartFragment : MvpAppCompatFragment(), IStartFragmentView, BackClickListener {
+
+    val TAG = "HW " + StartFragment::class.java.simpleName
 
     private val presenter by moxyPresenter {
         StartPresenter().apply {
@@ -40,6 +44,10 @@ class StartFragment : MvpAppCompatFragment(), IStartFragmentView, BackClickListe
         vb?.rvApods?.layoutManager = LinearLayoutManager(requireContext())
         adapter = ApodsRVAdapter(presenter.apodsListPresenter)
         vb?.rvApods?.adapter = adapter
+
+        if (Constants.DEBUG) {
+            Log.v(TAG, "adapter $adapter ")
+        }
     }
 
     override fun updateList() {

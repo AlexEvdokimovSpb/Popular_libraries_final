@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.ViewFragment">
 
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="@string/title"
-        android:textSize="@dimen/title_size" />
+        <LinearLayout
 
-    <ImageView
-        android:id="@+id/iv_apod"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="20dp"
-        tools:src="@color/black" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_copyright"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="@string/title"
-        android:textSize="@dimen/title_size" />
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/title"
+                android:textSize="@dimen/title_size" />
 
-    <TextView
-        android:id="@+id/tv_explanation"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title"
-        android:textSize="@dimen/title_size" />
-    </LinearLayout>
-</FrameLayout>
+            <ImageView
+                android:id="@+id/iv_apod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/apod"
+                tools:src="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_copyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/copyright"
+                android:textSize="@dimen/title_size" />
+
+            <TextView
+                android:id="@+id/tv_explanation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/explanation"
+                android:textSize="@dimen/explanation_size" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

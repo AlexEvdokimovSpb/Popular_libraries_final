@@ -3,4 +3,5 @@
     <dimen name="title_size">20sp</dimen>
     <dimen name="rv_text">16dp</dimen>
     <dimen name="padding_size">16dp</dimen>
+    <dimen name="explanation_size">16sp</dimen>
 </resources>

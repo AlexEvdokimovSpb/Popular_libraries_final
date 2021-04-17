@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NASA Astronomy Picture of the Day</string>
     <string name="title">title</string>
+    <string name="copyright">copyright</string>
+    <string name="explanation">explanation</string>
+    <string name="apod">apod</string>
 </resources>
