@@ -1,12 +1,15 @@
 package gb.myhomework.popular_libraries_final.mvp.presenter
 
+import android.util.Log
 import com.github.terrakok.cicerone.Router
+import gb.myhomework.popular_libraries_final.Constants
 import gb.myhomework.popular_libraries_final.mvp.model.entity.NasaApod
 import gb.myhomework.popular_libraries_final.mvp.model.repo.INasaApodRepo
 import gb.myhomework.popular_libraries_final.mvp.navigation.IScreens
 import gb.myhomework.popular_libraries_final.mvp.presenter.list.IApodsListPresenter
 import gb.myhomework.popular_libraries_final.mvp.view.IStartFragmentView
 import gb.myhomework.popular_libraries_final.mvp.view.list.IApodItemView
+import gb.myhomework.popular_libraries_final.ui.adapter.ApodsRVAdapter
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import javax.inject.Inject
@@ -28,6 +31,8 @@ class StartPresenter :
     @Inject
     lateinit var retrofitNasaApodRepo: INasaApodRepo
 
+    val TAG = "HW " + StartPresenter ::class.java.simpleName
+    
     class ApodsListPresenter : IApodsListPresenter {
         val apods = mutableListOf<NasaApod>()
         override var itemClickListener: ((IApodItemView) -> Unit)? = null
@@ -35,7 +40,7 @@ class StartPresenter :
         override fun bindView(view: IApodItemView) {
             val apod = apods[view.pos]
             view.setDate(apod.date)
-            view.setTitle(apod.title)
+            apod.title?.let { view.setTitle(it) }
         }
 
         override fun getCount() = apods.size
@@ -47,7 +52,6 @@ class StartPresenter :
         super.onFirstViewAttach()
         viewState.init()
         loadData()
-
         apodsListPresenter.itemClickListener = { view ->
             val apod = apodsListPresenter.apods[view.pos]
             router.navigateTo(screens.apod(apod))
@@ -55,11 +59,18 @@ class StartPresenter :
     }
 
     fun loadData() {
+        if (Constants.DEBUG) {
+            Log.v(TAG, "loadData retrofitNasaApodRepo $retrofitNasaApodRepo")
+        }
         retrofitNasaApodRepo.getNasaApods()
             .observeOn(uiScheduler)
             .subscribe({ repos ->
                 apodsListPresenter.apods.clear()
                 apodsListPresenter.apods.addAll(repos)
+                if (Constants.DEBUG) {
+                    Log.v(TAG, "repos  $repos")
+                }
+
                 viewState.updateList()
             }, {
                 println("Error: ${it.message}")

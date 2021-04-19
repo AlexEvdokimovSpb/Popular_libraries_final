@@ -6,22 +6,22 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class NasaApod(
-    @Expose val copyright: String,
+    @Expose val copyright: String?,
 //     The name of the copyright holder.
     @Expose val date: String,
 //     Date of image. Included in response because of default values.
-    @Expose val explanation: String,
+    @Expose val explanation: String?,
 //     The supplied text explanation of the image.
-    @Expose val hdurl: String,
+    @Expose val hdurl: String?,
 //     The URL for any high-resolution image for that day. Returned regardless of 'hd' param setting
 //     but will be omitted in the response IF it does not exist originally at APOD.
-    @Expose val mediaType: String,
+    @Expose val mediaType: String?,
 //     The type of media (data) returned. May either be 'image' or 'video' depending on content.
-    @Expose val serviceVersion: String,
+    @Expose val serviceVersion: String?,
 //     The service version used.
-    @Expose val title: String,
+    @Expose val title: String?,
 //     The title of the image.
-    @Expose val url: String,
+    @Expose val url: String?
 //     The URL of the APOD image or video of the day.
 
     // Дополнительные поля

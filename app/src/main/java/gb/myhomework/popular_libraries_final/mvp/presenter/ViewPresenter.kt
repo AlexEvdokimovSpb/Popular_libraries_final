@@ -14,10 +14,10 @@ class ViewPresenter(val apod: NasaApod) :
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        viewState.setTitle(apod.title)
-        viewState.loadApod(apod.url)
-        viewState.setCopyright(apod.copyright)
-        viewState.setExplanation(apod.explanation)
+        apod.title?.let { viewState.setTitle(it) }
+        apod.url?.let { viewState.loadApod(it) }
+        apod.copyright?.let { viewState.setCopyright(it) }
+        apod.explanation?.let { viewState.setExplanation(it) }
     }
 
     fun backClick(): Boolean {

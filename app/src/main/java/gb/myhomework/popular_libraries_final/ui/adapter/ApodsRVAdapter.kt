@@ -1,19 +1,14 @@
 package gb.myhomework.popular_libraries_final.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import gb.myhomework.popular_libraries_final.Constants
 import gb.myhomework.popular_libraries_final.databinding.ItemApodBinding
 import gb.myhomework.popular_libraries_final.mvp.presenter.list.IApodsListPresenter
 import gb.myhomework.popular_libraries_final.mvp.view.list.IApodItemView
-import gb.myhomework.popular_libraries_final.ui.fragment.StartFragment
 
 class ApodsRVAdapter(val presenter: IApodsListPresenter) :
     RecyclerView.Adapter<ApodsRVAdapter.ViewHolder>() {
-
-    val TAG = "HW " + ApodsRVAdapter::class.java.simpleName
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(
@@ -26,16 +21,14 @@ class ApodsRVAdapter(val presenter: IApodsListPresenter) :
             itemView.setOnClickListener { presenter.itemClickListener?.invoke(this) }
         }
 
-    override fun getItemCount() = presenter.getCount()
-
+    override fun getItemCount(): Int {
+        val count = presenter.getCount()
+        return count
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         presenter.bindView(holder.apply {
             pos = position
-
-            if (Constants.DEBUG) {
-                Log.v(TAG, "pos $pos ")
-            }
         })
 
     inner class ViewHolder(val vb: ItemApodBinding) : RecyclerView.ViewHolder(vb.root),
@@ -49,7 +42,5 @@ class ApodsRVAdapter(val presenter: IApodsListPresenter) :
         override fun setDate(date: String) {
             vb.tvDate.text = date
         }
-
-
     }
 }
