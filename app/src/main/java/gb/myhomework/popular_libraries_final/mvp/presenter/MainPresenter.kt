@@ -16,7 +16,7 @@ class MainPresenter : MvpPresenter<IMainView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        router.replaceScreen(screens.apods())
+        router.replaceScreen(screens.dateSelection())
     }
 
     fun backClicked() {

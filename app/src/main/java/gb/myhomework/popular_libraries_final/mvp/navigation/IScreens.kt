@@ -6,4 +6,6 @@ import gb.myhomework.popular_libraries_final.mvp.model.entity.NasaApod
 interface IScreens {
     fun apods(): Screen
     fun apod(nasaApod: NasaApod): Screen
+    fun dateSelection(): Screen
+    fun endDateSelection(): Screen
 }

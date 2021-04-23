@@ -13,8 +13,24 @@ class RetrofitNasaApodRepo(
 ) : INasaApodRepo {
 
     val apiKey: String = "EaxuLo0zfMy3jNtz0N7jVa9sSOjpdcL2k7Tkbevz"
-    val startDate: String = "2021-01-01"
-    val endDate: String = "2021-01-10"
+    var startDate: String = "2021-01-01"
+    var endDate: String = "2021-01-10"
+
+    override fun setData(year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        startDate = StringBuilder() // Месяц отсчитывается с 0, поэтому добавляем 1
+            .append(year).append("-")
+            .append(monthOfYear + 1).append("-")
+            .append(dayOfMonth)
+            .toString()
+    }
+
+    override fun setEndData(year: Int, monthOfYear: Int, dayOfMonth: Int) {
+        endDate = StringBuilder()
+            .append(year).append("-")
+            .append(monthOfYear + 1).append("-")
+            .append(dayOfMonth)
+            .toString()
+    }
 
     override fun getNasaApods() = networkStatus.isOnlineSingle().flatMap { isOnline ->
         if (isOnline) {
@@ -26,6 +42,7 @@ class RetrofitNasaApodRepo(
             cache.getNasaApods()
         }
     }.subscribeOn(Schedulers.io())
+
 }
 
 

@@ -2,9 +2,7 @@ package gb.myhomework.popular_libraries_final.di
 
 import dagger.Component
 import gb.myhomework.popular_libraries_final.di.module.*
-import gb.myhomework.popular_libraries_final.mvp.presenter.MainPresenter
-import gb.myhomework.popular_libraries_final.mvp.presenter.StartPresenter
-import gb.myhomework.popular_libraries_final.mvp.presenter.ViewPresenter
+import gb.myhomework.popular_libraries_final.mvp.presenter.*
 import gb.myhomework.popular_libraries_final.ui.activity.MainActivity
 import javax.inject.Singleton
 
@@ -23,4 +21,6 @@ interface AppComponent {
     fun inject(mainPresenter: MainPresenter)
     fun inject(starPresenter: StartPresenter)
     fun inject(viewPresenter: ViewPresenter)
+    fun inject(viewPresenter: DateSelectionPresenter)
+    fun inject(viewPresenter: EndDateSelectionPresenter)
 }
