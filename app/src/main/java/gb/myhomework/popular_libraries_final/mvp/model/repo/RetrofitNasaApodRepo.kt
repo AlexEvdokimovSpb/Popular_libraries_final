@@ -5,6 +5,7 @@ import gb.myhomework.popular_libraries_final.mvp.model.cache.INasaApodsCache
 import gb.myhomework.popular_libraries_final.mvp.model.network.INetworkStatus
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.*
 
 class RetrofitNasaApodRepo(
     val api: IDataSource,
@@ -14,21 +15,27 @@ class RetrofitNasaApodRepo(
 
     val apiKey: String = "EaxuLo0zfMy3jNtz0N7jVa9sSOjpdcL2k7Tkbevz"
     var startDate: String = "2021-01-01"
+    var startDateNew = GregorianCalendar()
     var endDate: String = "2021-01-10"
 
-    override fun setData(year: Int, monthOfYear: Int, dayOfMonth: Int) {
+    override fun setData(startDateNew: GregorianCalendar) {
+        this.startDateNew = startDateNew
         startDate = StringBuilder() // Месяц отсчитывается с 0, поэтому добавляем 1
-            .append(year).append("-")
-            .append(monthOfYear + 1).append("-")
-            .append(dayOfMonth)
+            .append(startDateNew.get(GregorianCalendar.YEAR)).append("-")
+            .append(startDateNew.get(GregorianCalendar.MONTH) + 1).append("-")
+            .append(startDateNew.get(GregorianCalendar.DAY_OF_MONTH))
             .toString()
     }
 
-    override fun setEndData(year: Int, monthOfYear: Int, dayOfMonth: Int) {
-        endDate = StringBuilder()
-            .append(year).append("-")
-            .append(monthOfYear + 1).append("-")
-            .append(dayOfMonth)
+    override fun getData(): GregorianCalendar {
+        return startDateNew
+    }
+
+    override fun setEndData(endDateNew: GregorianCalendar) {
+        endDate = StringBuilder() // Месяц отсчитывается с 0, поэтому добавляем 1
+            .append(endDateNew.get(GregorianCalendar.YEAR)).append("-")
+            .append(endDateNew.get(GregorianCalendar.MONTH) + 1).append("-")
+            .append(endDateNew.get(GregorianCalendar.DAY_OF_MONTH))
             .toString()
     }
 

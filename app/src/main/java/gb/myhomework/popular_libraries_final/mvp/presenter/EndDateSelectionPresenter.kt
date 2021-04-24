@@ -6,6 +6,7 @@ import gb.myhomework.popular_libraries_final.mvp.navigation.IScreens
 import gb.myhomework.popular_libraries_final.mvp.view.IDateSelectionFragmentView
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -25,13 +26,28 @@ class EndDateSelectionPresenter :
     @Inject
     lateinit var retrofitNasaApodRepo: INasaApodRepo
 
+    private var endDate = GregorianCalendar()
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.dateSelection()
     }
 
     fun setData(year: Int, monthOfYear: Int, dayOfMonth: Int) {
-        retrofitNasaApodRepo.setEndData(year, monthOfYear, dayOfMonth)
+
+        var startDate = retrofitNasaApodRepo.getData()
+        var lastDate = GregorianCalendar()
+
+
+        endDate = GregorianCalendar(year, monthOfYear, dayOfMonth)
+        if (endDate < startDate) {
+            endDate = startDate
+        }
+        if (endDate >= lastDate) {
+            lastDate.add(GregorianCalendar.DAY_OF_MONTH, -1)
+            endDate = lastDate
+        }
+
+        retrofitNasaApodRepo.setEndData(endDate)
         router.navigateTo(screens.apods())
     }
 
