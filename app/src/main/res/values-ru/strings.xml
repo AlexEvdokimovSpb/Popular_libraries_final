@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NASA Astronomy Picture of the Day</string>
+    <string name="starting_date">Выберите начальную дату выборки.</string>
+    <string name="please_make_a_choice_of_the_end_date">Выберите конечную дату выборки.</string>
+</resources>

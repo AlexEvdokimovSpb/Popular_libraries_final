@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">NASA Astronomy Picture of the Day</string>
-    <string name="title">title</string>
-    <string name="copyright">copyright</string>
-    <string name="explanation">explanation</string>
-    <string name="apod">apod</string>
+    <string name="title" translatable="false">title</string>
+    <string name="copyright" translatable="false">copyright</string>
+    <string name="explanation" translatable="false">explanation</string>
+    <string name="apod" translatable="false">apod</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="starting_date">Please make a choice of the starting date.</string>
     <string name="please_make_a_choice_of_the_end_date">Please make a choice of the end date.</string>
+    <string name="apod_video" translatable="false">apod video</string>
+    <string name="error_player" translatable="false">error player</string>
 </resources>

@@ -6,7 +6,7 @@ import java.util.*
 
 interface INasaApodRepo {
     fun getNasaApods(): Single<List<NasaApod>>
-    fun setData(startData: GregorianCalendar)
+    fun setData(startDateNew: GregorianCalendar)
     fun getData(): GregorianCalendar
-    fun setEndData(endData: GregorianCalendar)
+    fun setEndData(endDateNew: GregorianCalendar)
 }

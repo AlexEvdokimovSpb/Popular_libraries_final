@@ -31,8 +31,8 @@ class StartPresenter :
     @Inject
     lateinit var retrofitNasaApodRepo: INasaApodRepo
 
-    val TAG = "HW " + StartPresenter ::class.java.simpleName
-    
+    val TAG = "HW " + StartPresenter::class.java.simpleName
+
     class ApodsListPresenter : IApodsListPresenter {
         val apods = mutableListOf<NasaApod>()
         override var itemClickListener: ((IApodItemView) -> Unit)? = null
@@ -54,7 +54,19 @@ class StartPresenter :
         loadData()
         apodsListPresenter.itemClickListener = { view ->
             val apod = apodsListPresenter.apods[view.pos]
-            router.navigateTo(screens.apod(apod))
+
+            if (apod.mediaType.equals("image")) {
+                router.navigateTo(screens.apod(apod))
+                if (Constants.DEBUG) {
+                    Log.v(TAG, "mediaType  ${apod.mediaType}")
+                }
+            } else {
+                router.navigateTo(screens.apodVideo(apod))
+                if (Constants.DEBUG) {
+                    Log.v(TAG, "mediaType2  ${apod.mediaType}")
+                }
+            }
+
         }
     }
 
