@@ -37,6 +37,14 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+        def apiKey  = properties.getProperty("nasaApodApiKey", "")
+        it.buildConfigField "String", "NASA_APOD_API_KEY", apiKey
+    }
+
 }
 
 dependencies {

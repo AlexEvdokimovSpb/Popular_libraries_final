@@ -1,5 +1,6 @@
 package gb.myhomework.popular_libraries_final.mvp.model.repo
 
+import gb.myhomework.popular_libraries_final.BuildConfig
 import gb.myhomework.popular_libraries_final.mvp.model.api.IDataSource
 import gb.myhomework.popular_libraries_final.mvp.model.cache.INasaApodsCache
 import gb.myhomework.popular_libraries_final.mvp.model.network.INetworkStatus
@@ -13,7 +14,8 @@ class RetrofitNasaApodRepo(
     val cache: INasaApodsCache
 ) : INasaApodRepo {
 
-    val apiKey: String = "EaxuLo0zfMy3jNtz0N7jVa9sSOjpdcL2k7Tkbevz"
+//    val apiKey: String = "EaxuLo0zfMy3jNtz0N7jVa9sSOjpdcL2k7Tkbevz"
+    val apiKey: String = BuildConfig.NASA_APOD_API_KEY
     var startDate: String = "2021-01-01"
     var startDateNew = GregorianCalendar()
     var endDate: String = "2021-01-10"
